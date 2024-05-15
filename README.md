@@ -171,16 +171,8 @@ Content Delivery Network (CDN)
 
 Latest version can be linked into your project using the following in the head section of your project:
 
-**Version with IDE-Preview:**
-
 ```html
 <script src="https://cdn.jsdelivr.net/gh/worldoptimizer/HypeTimelineWatcher/HypeTimelineWatcher.min.js"></script>
-```
-
-**Version without IDE-Preview (saves some kilobytes in final delivery, if necessary):**
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/worldoptimizer/HypeTimelineWatcher/HypeTimelineWatcher.prod.min.js"></script>
 ```
 
 Optionally you can also link a SRI version or specific releases. 
