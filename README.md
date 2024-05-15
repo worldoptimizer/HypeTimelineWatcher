@@ -6,7 +6,7 @@ This guide will help you get started with the Hype Timeline Watcher Extension, f
 
 ## Simple Usage: Handling Timeline Completion
 
-1. **Define `onTimelineComplete` Function**:
+1. **Define `onTimelineComplete` Function**:  
    Create the `onTimelineComplete` function in your Hype document's functions. This function will handle completion events for any timeline without the need to watch it.
 
    ```javascript
@@ -20,7 +20,7 @@ This guide will help you get started with the Hype Timeline Watcher Extension, f
 
 To handle progress events, you need to watch a timeline.
 
-1. **Define `onTimelineProgress` Function**:
+1. **Define `onTimelineProgress` Function**:  
    Create the `onTimelineProgress` function in your Hype document's functions to handle progress events.
 
    ```javascript
@@ -30,7 +30,7 @@ To handle progress events, you need to watch a timeline.
    }
    ```
 
-2. **Watch a Timeline**:
+2. **Watch a Timeline**:  
    Add the following code to your scene's load action or a suitable initialization script to start watching a timeline.
 
    ```javascript
@@ -41,7 +41,7 @@ To handle progress events, you need to watch a timeline.
 
 If you have multiple timelines and want to handle them differently, use the `timelineName` from the event object to differentiate them.
 
-1. **Update `onTimelineProgress` Function**:
+1. **Update `onTimelineProgress` Function**:  
    Modify the `onTimelineProgress` function to use a switch statement based on the timeline name.
 
    ```javascript
@@ -61,7 +61,7 @@ If you have multiple timelines and want to handle them differently, use the `tim
    }
    ```
 
-2. **Update `onTimelineComplete` Function**:
+2. **Update `onTimelineComplete` Function**:  
    Similarly, modify the `onTimelineComplete` function.
 
    ```javascript
@@ -81,7 +81,7 @@ If you have multiple timelines and want to handle them differently, use the `tim
    }
    ```
 
-3. **Watch Multiple Timelines**:
+3. **Watch Multiple Timelines**:  
    Watch multiple timelines by adding them in your initialization script.
 
    ```javascript
@@ -93,16 +93,25 @@ If you have multiple timelines and want to handle them differently, use the `tim
 
 For more advanced usage, you can specify custom callbacks directly when watching timelines.
 
-1. **Watch a Timeline with Custom Callbacks**:
-   Use the following code to watch a timeline and specify custom callbacks for progress and completion events.
+1. **Watch a Timeline with Custom Callbacks**:  
+   Use the following code to watch a timeline and specify custom callbacks for progress, start, pause, resume, and completion events.
 
    ```javascript
    hypeDocument.watchTimelineByName('MyTimeline', {
-     onProgressCallback: function(hypeDocument, element, event) {
+     onTimelineProgress: function(hypeDocument, element, event) {
        console.log('Custom Progress:', event.timelineName, 'Current Time:', event.currentTime);
      },
-     onCompleteCallback: function(hypeDocument, element, event) {
+     onTimelineComplete: function(hypeDocument, element, event) {
        console.log('Custom Complete:', event.timelineName, 'is complete');
+     },
+     onTimelineStart: function(hypeDocument, element, event) {
+       console.log('Custom Start:', event.timelineName, 'has started');
+     },
+     onTimelinePause: function(hypeDocument, element, event) {
+       console.log('Custom Pause:', event.timelineName, 'has paused');
+     },
+     onTimelineResume: function(hypeDocument, element, event) {
+       console.log('Custom Resume:', event.timelineName, 'has resumed');
      }
    });
    ```
@@ -111,22 +120,50 @@ For more advanced usage, you can specify custom callbacks directly when watching
 
 To watch timelines within symbols, you need to pass the `symbolInstance` in the settings object.
 
-1. **Watch a Timeline in a Symbol**:
+1. **Watch a Timeline in a Symbol**:  
    Use the following code to watch a timeline within a symbol and specify custom callbacks.
 
    ```javascript
    var symbolInstance = hypeDocument.getSymbolInstanceById('symbolId');
    symbolInstance.watchTimelineByName('MySymbolTimeline', {
-     onProgressCallback: function(hypeDocument, element, event) {
+     onTimelineProgress: function(hypeDocument, element, event) {
        console.log('Custom Progress for Symbol:', event.timelineName, 'Current Time:', event.currentTime);
      },
-     onCompleteCallback: function(hypeDocument, element, event) {
+     onTimelineComplete: function(hypeDocument, element, event) {
        console.log('Custom Complete for Symbol:', event.timelineName, 'is complete');
+     },
+     onTimelineStart: function(hypeDocument, element, event) {
+       console.log('Custom Start for Symbol:', event.timelineName, 'has started');
+     },
+     onTimelinePause: function(hypeDocument, element, event) {
+       console.log('Custom Pause for Symbol:', event.timelineName, 'has paused');
+     },
+     onTimelineResume: function(hypeDocument, element, event) {
+       console.log('Custom Resume for Symbol:', event.timelineName, 'has resumed');
      }
    });
    ```
 
-By following these steps, you can set up the Hype Timeline Watcher Extension for simple usage, differentiate timeline handling, and utilize custom callbacks for more advanced functionality, including within symbols.
+## Unwatching Timelines
+
+To stop watching a timeline, use the `unwatchTimelineByName` function.
+
+1. **Unwatch a Timeline**:  
+   Add the following code to stop watching a specific timeline.
+
+   ```javascript
+   hypeDocument.unwatchTimelineByName('MyTimeline');
+   ```
+
+2. **Unwatch a Timeline in a Symbol**:  
+   If you are watching a timeline within a symbol, use the following code to stop watching it.
+
+   ```javascript
+   var symbolInstance = hypeDocument.getSymbolInstanceById('symbolId');
+   symbolInstance.unwatchTimelineByName('MySymbolTimeline');
+   ```
+
+By following these steps, you can set up the Hype Timeline Watcher Extension for simple usage, differentiate timeline handling, utilize custom callbacks for more advanced functionality, including within symbols, and unwatch timelines when they are no longer needed.
 
 ---
 
